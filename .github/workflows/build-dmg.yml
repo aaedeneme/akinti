@@ -1,0 +1,15 @@
+name: Build DMG
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - run: brew install dylibbundler
+      - run: chmod +x build.sh && ./build.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Akinti-dmg
+          path: Akinti.dmg
