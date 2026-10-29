@@ -123,7 +123,7 @@ final class TorrentStore: ObservableObject {
         engine = TorrentEngine(stateDirectory: support)
         applyLimits()
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-            Task { @MainActor in self?.poll() }
+            MainActor.assumeIsolated { self?.poll() }
         }
     }
 
